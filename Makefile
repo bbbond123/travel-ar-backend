@@ -12,6 +12,11 @@ build:
 # Run the application
 run:
 	@go run cmd/api/main.go
+
+# Debug the application
+debug:
+   	@dlv debug --headless --listen=:2345 --api-version=2 --accept-multiclient
+
 # Create DB container
 docker-run:
 	@if docker compose up --build 2>/dev/null; then \
