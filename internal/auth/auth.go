@@ -1,7 +1,9 @@
 package auth
 
 import (
+	"fmt"
 	"log"
+	"net/http"
 	"os"
 
 	"github.com/gorilla/sessions"
@@ -24,6 +26,8 @@ func NewAuth() {
 	}
 
 	googleClientId := os.Getenv("GOOGLE_CLIENT_ID")
+
+	fmt.Printf("googleClientId: %s\n", googleClientId)
 	googleClientSecret := os.Getenv("GOOGLE_CLIENT_SECRET")
 
 	store := sessions.NewCookieStore([]byte(key))
@@ -32,10 +36,11 @@ func NewAuth() {
 	store.Options.Path = "/"
 	store.Options.HttpOnly = true
 	store.Options.Secure = IsProd
+	store.Options.SameSite = http.SameSiteLaxMode
 
 	gothic.Store = store
 
 	goth.UseProviders(
-		google.New(googleClientId, googleClientSecret, "http://localhost:3000/auth/google/callback"),
+		google.New(googleClientId, googleClientSecret, "http://localhost:3000/api/auth/google/callback"),
 	)
 }

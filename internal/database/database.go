@@ -8,6 +8,7 @@ import (
 	"os"
 	"strconv"
 	"time"
+	"travel-ar-backend/internal/model"
 
 	_ "github.com/jackc/pgx/v5/stdlib"
 	_ "github.com/joho/godotenv/autoload"
@@ -22,6 +23,13 @@ type Service interface {
 	// Close terminates the database connection.
 	// It returns an error if the connection cannot be closed.
 	Close() error
+
+	GetUserByEmail(email string) (*model.User, error)
+	CreateUser(user model.User) (*model.User, error)
+	UpdateUserGoogleInfo(userID int, googleID, avatar string) error
+	GetUserByID(userID int) (*model.User, error)
+	SaveRefreshToken(userID int, refreshToken string, expiresAt time.Time) error
+	GetRefreshToken(token string) (*model.RefreshToken, error)
 }
 
 type service struct {
@@ -112,4 +120,73 @@ func (s *service) Health() map[string]string {
 func (s *service) Close() error {
 	log.Printf("Disconnected from database: %s", database)
 	return s.db.Close()
+}
+
+func (s *service) GetUserByEmail(email string) (*model.User, error) {
+	user := &model.User{}
+	query := `SELECT user_id, email, google_id, name, avatar, provider, status FROM users WHERE email = $1`
+	err := s.db.QueryRow(query, email).Scan(
+		&user.UserID, &user.Email, &user.GoogleID, &user.Name, &user.Avatar, &user.Provider, &user.Status,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
+}
+
+func (s *service) CreateUser(user model.User) (*model.User, error) {
+	query := `
+        INSERT INTO users (email, google_id, name, avatar, provider, status, created_at)
+        VALUES ($1, $2, $3, $4, $5, $6, NOW())
+        RETURNING user_id
+    `
+	err := s.db.QueryRow(query, user.Email, user.GoogleID, user.Name, user.Avatar, user.Provider, user.Status).
+		Scan(&user.UserID)
+	if err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
+
+func (s *service) UpdateUserGoogleInfo(userID int, googleID, avatar string) error {
+	query := `UPDATE users SET google_id = $1, avatar = $2, updated_at = NOW() WHERE user_id = $3`
+	_, err := s.db.Exec(query, googleID, avatar, userID)
+	return err
+}
+
+func (s *service) GetUserByID(userID int) (*model.User, error) {
+	user := &model.User{}
+	query := `SELECT user_id, email, google_id, name, avatar, provider, status FROM users WHERE user_id = $1`
+	err := s.db.QueryRow(query, userID).Scan(
+		&user.UserID, &user.Email, &user.GoogleID, &user.Name, &user.Avatar, &user.Provider, &user.Status,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
+}
+
+func (s *service) SaveRefreshToken(userID int, refreshToken string, expiresAt time.Time) error {
+	query := `
+        INSERT INTO refresh_tokens (user_id, refresh_token, expires_at)
+        VALUES ($1, $2, $3)
+    `
+	_, err := s.db.Exec(query, userID, refreshToken, expiresAt)
+	return err
+}
+
+func (s *service) GetRefreshToken(token string) (*model.RefreshToken, error) {
+	var rt model.RefreshToken
+	query := `
+        SELECT token_id, user_id, refresh_token, expires_at, created_at, revoked
+        FROM refresh_tokens
+        WHERE refresh_token = $1 AND revoked = FALSE
+    `
+	err := s.db.QueryRow(query, token).Scan(
+		&rt.TokenID, &rt.UserID, &rt.RefreshToken, &rt.ExpiresAt, &rt.CreatedAt, &rt.Revoked,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &rt, nil
 }
