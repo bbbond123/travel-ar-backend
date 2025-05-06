@@ -15,7 +15,7 @@ run:
 
 # Debug the application
 debug:
-   	@dlv debug --headless --listen=:2345 --api-version=2 --accept-multiclient
+	@dlv debug cmd/api/main.go --headless --listen=:2345 --api-version=2 --accept-multiclient
 
 # Create DB container
 docker-run:
