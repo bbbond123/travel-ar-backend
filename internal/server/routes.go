@@ -6,12 +6,17 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
+	"github.com/golang-jwt/jwt/v4"
 	"github.com/markbates/goth/gothic"
 )
+
+// 假设你有一个 JWT secret
+var jwtSecret = []byte("your_secret_key")
 
 func (s *Server) RegisterRoutes() http.Handler {
 	r := chi.NewRouter()
@@ -57,14 +62,36 @@ func (s *Server) getAuthCallbackFunction(w http.ResponseWriter, r *http.Request)
 
 	user, err := gothic.CompleteUserAuth(w, r)
 	if err != nil {
-		fmt.Fprintln(w, r)
+		fmt.Fprintln(w, "auth error:", err)
 		return
 	}
 
 	fmt.Println(user)
 
-	http.Redirect(w, r, "http://localhost:5173", http.StatusFound)
+	// 生成 JWT
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"user_id": user.UserID,
+		"email":   user.Email,
+		"exp":     time.Now().Add(24 * time.Hour).Unix(),
+	})
+	tokenString, err := token.SignedString(jwtSecret)
+	if err != nil {
+		http.Error(w, "Could not create token", http.StatusInternalServerError)
+		return
+	}
 
+	// 设置 Cookie
+	http.SetCookie(w, &http.Cookie{
+		Name:     "token",
+		Value:    tokenString,
+		Path:     "/",
+		HttpOnly: true,
+		Secure:   false, // 本地开发用 false，生产环境要 true
+		SameSite: http.SameSiteLaxMode,
+	})
+	fmt.Println("token: ", tokenString)
+	// 重定向到前端
+	http.Redirect(w, r, "http://localhost:5173", http.StatusFound)
 }
 
 func (s *Server) beginAuthProviderCallback(w http.ResponseWriter, r *http.Request) {
