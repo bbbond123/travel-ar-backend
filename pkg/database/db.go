@@ -3,6 +3,7 @@ package database
 import (
 	"fmt"
 	"log"
+	"travel-ar-backend/internal/model"
 
 	"github.com/spf13/viper"
 	"gorm.io/driver/postgres"
@@ -38,4 +39,23 @@ func ConnectDatabase() {
 
 func GetDB() *gorm.DB {
 	return DB
+}
+
+func AutoMigrate() {
+	db := GetDB()
+	db.AutoMigrate(
+		&model.Facility{},
+		&model.File{},
+		&model.Notice{},
+		&model.VisitHistory{},
+		&model.Language{},
+		&model.User{},
+		&model.RefreshToken{},
+		&model.Store{},
+		&model.Menu{},
+		&model.Article{},
+		&model.Comment{},
+		&model.Tag{},
+		&model.Tagging{},
+	)
 }

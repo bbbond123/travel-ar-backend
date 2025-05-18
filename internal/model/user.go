@@ -1,10 +1,12 @@
 package model
 
-import "time"
+import (
+	"time"
+)
 
 // User 表示数据库中的 users 表
 type User struct {
-	UserID           int        `gorm:"column:user_id;primaryKey" json:"user_id"`
+	UserID           int        `gorm:"primaryKey;column:user_id" json:"user_id"`
 	Name             string     `gorm:"column:name" json:"name"`
 	NameKana         string     `gorm:"column:name_kana" json:"name_kana"`
 	Birth            *time.Time `gorm:"column:birth" json:"birth"`

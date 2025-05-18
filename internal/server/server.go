@@ -22,26 +22,6 @@ type Server struct {
 }
 
 func NewServer() *http.Server {
-	// // 1. 初始化数据库
-	// database.ConnectDatabase()
-
-	// // 2. 自动迁移
-	// db := database.GetDB()
-	// db.AutoMigrate(
-	// 	&model.Facility{},
-	// 	&model.File{},
-	// 	&model.Notice{},
-	// 	&model.VisitHistory{},
-	// 	&model.Language{},
-	// 	&model.User{},
-	// 	&model.RefreshToken{},
-	// 	&model.Store{},
-	// 	&model.Menu{},
-	// 	&model.Article{},
-	// 	&model.Comment{},
-	// 	&model.Tag{},
-	// 	&model.Tagging{},
-	// )
 
 	// 3. 初始化 Gin 路由
 	r := router.InitRouter()
