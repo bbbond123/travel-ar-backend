@@ -1,0 +1,3389 @@
+definitions:
+  model.Article:
+    properties:
+      article_id:
+        type: integer
+      article_image:
+        items:
+          type: integer
+        type: array
+      body_text:
+        type: string
+      category:
+        type: string
+      comment_count:
+        type: integer
+      created_at:
+        type: string
+      like_count:
+        type: integer
+      title:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  model.ArticleReqCreate:
+    properties:
+      article_image:
+        items:
+          type: integer
+        type: array
+      body_text:
+        type: string
+      category:
+        type: string
+      comment_count:
+        type: integer
+      like_count:
+        type: integer
+      title:
+        type: string
+    required:
+    - body_text
+    - comment_count
+    - like_count
+    - title
+    type: object
+  model.ArticleReqEdit:
+    properties:
+      article_id:
+        type: integer
+      article_image:
+        items:
+          type: integer
+        type: array
+      body_text:
+        type: string
+      category:
+        type: string
+      comment_count:
+        type: integer
+      like_count:
+        type: integer
+      title:
+        type: string
+    required:
+    - article_id
+    type: object
+  model.ArticleReqList:
+    properties:
+      keyword:
+        type: string
+      page:
+        type: integer
+      page_size:
+        type: integer
+    required:
+    - page
+    - page_size
+    type: object
+  model.AuthResponse:
+    properties:
+      access_token:
+        type: string
+      refresh_token:
+        type: string
+      user:
+        $ref: '#/definitions/model.User'
+    type: object
+  model.BaseResponse:
+    properties:
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      success:
+        description: 请求是否成功
+        type: boolean
+    type: object
+  model.Comment:
+    properties:
+      article_id:
+        type: integer
+      comment_id:
+        type: integer
+      comment_text:
+        type: string
+      created_at:
+        type: string
+      is_published:
+        type: boolean
+      reply_to_comment_id:
+        type: integer
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  model.CommentReqCreate:
+    properties:
+      article_id:
+        type: integer
+      comment_text:
+        type: string
+      is_published:
+        type: boolean
+      reply_to_comment_id:
+        type: integer
+      user_id:
+        type: integer
+    required:
+    - article_id
+    - comment_text
+    - is_published
+    - user_id
+    type: object
+  model.CommentReqEdit:
+    properties:
+      comment_id:
+        type: integer
+      comment_text:
+        type: string
+      is_published:
+        type: boolean
+      reply_to_comment_id:
+        type: integer
+    required:
+    - comment_id
+    type: object
+  model.CommentReqList:
+    properties:
+      keyword:
+        type: string
+      page:
+        type: integer
+      page_size:
+        type: integer
+    required:
+    - page
+    - page_size
+    type: object
+  model.Facility:
+    properties:
+      created_at:
+        type: string
+      description:
+        description: 设施描述
+        type: string
+      facility_id:
+        description: 设施ID
+        type: integer
+      facility_name:
+        description: 设施名
+        type: string
+      latitude:
+        description: 纬度
+        type: number
+      location:
+        description: 所在地
+        type: string
+      longitude:
+        description: 经度
+        type: number
+      person_id:
+        description: 相关人物ID（可选）
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  model.FacilityCreateRequest:
+    properties:
+      description:
+        description: 描述
+        type: string
+      facility_name:
+        description: 设施名
+        type: string
+      latitude:
+        description: 纬度
+        type: number
+      location:
+        description: 所在地
+        type: string
+      longitude:
+        description: 经度
+        type: number
+      person_id:
+        description: 相关人物ID（可选）
+        type: integer
+    required:
+    - facility_name
+    - latitude
+    - location
+    - longitude
+    type: object
+  model.FacilityQueryRequest:
+    properties:
+      keyword:
+        description: 关键字（设施名模糊搜索）
+        type: string
+      page:
+        description: 页码
+        type: integer
+      page_size:
+        description: 每页数量
+        type: integer
+    required:
+    - page
+    - page_size
+    type: object
+  model.FacilityUpdateRequest:
+    properties:
+      description:
+        description: 描述
+        type: string
+      facility_id:
+        description: 设施ID
+        type: integer
+      facility_name:
+        description: 设施名
+        type: string
+      latitude:
+        description: 纬度
+        type: number
+      location:
+        description: 所在地
+        type: string
+      longitude:
+        description: 经度
+        type: number
+      person_id:
+        description: 相关人物ID（可选）
+        type: integer
+    required:
+    - facility_id
+    - facility_name
+    - latitude
+    - location
+    - longitude
+    type: object
+  model.File:
+    properties:
+      created_at:
+        type: string
+      file_data:
+        items:
+          type: integer
+        type: array
+      file_id:
+        type: integer
+      file_name:
+        type: string
+      file_size:
+        type: integer
+      file_type:
+        type: string
+      location:
+        type: string
+      related_id:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  model.FileReqCreate:
+    properties:
+      file_data:
+        items:
+          type: integer
+        type: array
+      file_name:
+        type: string
+      file_size:
+        type: integer
+      file_type:
+        type: string
+      location:
+        type: string
+      related_id:
+        type: integer
+    required:
+    - file_data
+    - file_name
+    - file_type
+    - location
+    - related_id
+    type: object
+  model.FileReqEdit:
+    properties:
+      file_data:
+        items:
+          type: integer
+        type: array
+      file_id:
+        type: integer
+      file_name:
+        type: string
+      file_size:
+        type: integer
+      file_type:
+        type: string
+      location:
+        type: string
+      related_id:
+        type: integer
+    required:
+    - file_id
+    type: object
+  model.FileReqList:
+    properties:
+      keyword:
+        type: string
+      page:
+        type: integer
+      page_size:
+        type: integer
+    required:
+    - page
+    - page_size
+    type: object
+  model.Language:
+    properties:
+      created_at:
+        type: string
+      display_order:
+        type: integer
+      is_active:
+        type: boolean
+      language_id:
+        type: integer
+      language_name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  model.LanguageReqCreate:
+    properties:
+      display_order:
+        type: integer
+      is_active:
+        type: boolean
+      language_name:
+        type: string
+    required:
+    - language_name
+    type: object
+  model.LanguageReqEdit:
+    properties:
+      display_order:
+        type: integer
+      is_active:
+        type: boolean
+      language_id:
+        type: integer
+      language_name:
+        type: string
+    required:
+    - language_id
+    type: object
+  model.LanguageReqList:
+    properties:
+      keyword:
+        type: string
+      page:
+        type: integer
+      page_size:
+        type: integer
+    required:
+    - page
+    - page_size
+    type: object
+  model.ListResponse-model_Article:
+    properties:
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      list:
+        description: 列表
+        items:
+          $ref: '#/definitions/model.Article'
+        type: array
+      success:
+        description: 请求是否成功
+        type: boolean
+      total:
+        description: 总条数
+        type: integer
+    type: object
+  model.ListResponse-model_Comment:
+    properties:
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      list:
+        description: 列表
+        items:
+          $ref: '#/definitions/model.Comment'
+        type: array
+      success:
+        description: 请求是否成功
+        type: boolean
+      total:
+        description: 总条数
+        type: integer
+    type: object
+  model.ListResponse-model_Facility:
+    properties:
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      list:
+        description: 列表
+        items:
+          $ref: '#/definitions/model.Facility'
+        type: array
+      success:
+        description: 请求是否成功
+        type: boolean
+      total:
+        description: 总条数
+        type: integer
+    type: object
+  model.ListResponse-model_File:
+    properties:
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      list:
+        description: 列表
+        items:
+          $ref: '#/definitions/model.File'
+        type: array
+      success:
+        description: 请求是否成功
+        type: boolean
+      total:
+        description: 总条数
+        type: integer
+    type: object
+  model.ListResponse-model_Language:
+    properties:
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      list:
+        description: 列表
+        items:
+          $ref: '#/definitions/model.Language'
+        type: array
+      success:
+        description: 请求是否成功
+        type: boolean
+      total:
+        description: 总条数
+        type: integer
+    type: object
+  model.ListResponse-model_Menu:
+    properties:
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      list:
+        description: 列表
+        items:
+          $ref: '#/definitions/model.Menu'
+        type: array
+      success:
+        description: 请求是否成功
+        type: boolean
+      total:
+        description: 总条数
+        type: integer
+    type: object
+  model.ListResponse-model_Notice:
+    properties:
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      list:
+        description: 列表
+        items:
+          $ref: '#/definitions/model.Notice'
+        type: array
+      success:
+        description: 请求是否成功
+        type: boolean
+      total:
+        description: 总条数
+        type: integer
+    type: object
+  model.ListResponse-model_RefreshToken:
+    properties:
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      list:
+        description: 列表
+        items:
+          $ref: '#/definitions/model.RefreshToken'
+        type: array
+      success:
+        description: 请求是否成功
+        type: boolean
+      total:
+        description: 总条数
+        type: integer
+    type: object
+  model.ListResponse-model_Store:
+    properties:
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      list:
+        description: 列表
+        items:
+          $ref: '#/definitions/model.Store'
+        type: array
+      success:
+        description: 请求是否成功
+        type: boolean
+      total:
+        description: 总条数
+        type: integer
+    type: object
+  model.ListResponse-model_Tag:
+    properties:
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      list:
+        description: 列表
+        items:
+          $ref: '#/definitions/model.Tag'
+        type: array
+      success:
+        description: 请求是否成功
+        type: boolean
+      total:
+        description: 总条数
+        type: integer
+    type: object
+  model.ListResponse-model_User:
+    properties:
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      list:
+        description: 列表
+        items:
+          $ref: '#/definitions/model.User'
+        type: array
+      success:
+        description: 请求是否成功
+        type: boolean
+      total:
+        description: 总条数
+        type: integer
+    type: object
+  model.ListResponse-model_VisitHistory:
+    properties:
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      list:
+        description: 列表
+        items:
+          $ref: '#/definitions/model.VisitHistory'
+        type: array
+      success:
+        description: 请求是否成功
+        type: boolean
+      total:
+        description: 总条数
+        type: integer
+    type: object
+  model.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  model.Menu:
+    properties:
+      created_at:
+        type: string
+      display_order:
+        type: integer
+      is_active:
+        type: boolean
+      menu_code:
+        type: string
+      menu_id:
+        type: integer
+      menu_name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  model.MenuReqCreate:
+    properties:
+      display_order:
+        type: integer
+      is_active:
+        type: boolean
+      menu_code:
+        type: string
+      menu_name:
+        type: string
+    required:
+    - is_active
+    - menu_code
+    - menu_name
+    type: object
+  model.MenuReqEdit:
+    properties:
+      display_order:
+        type: integer
+      is_active:
+        type: boolean
+      menu_code:
+        type: string
+      menu_id:
+        type: integer
+      menu_name:
+        type: string
+    required:
+    - menu_id
+    type: object
+  model.MenuReqList:
+    properties:
+      keyword:
+        type: string
+      page:
+        type: integer
+      page_size:
+        type: integer
+    required:
+    - page
+    - page_size
+    type: object
+  model.Notice:
+    properties:
+      content:
+        type: string
+      created_at:
+        type: string
+      is_active:
+        type: boolean
+      is_read:
+        type: boolean
+      notice_id:
+        type: integer
+      notice_type:
+        type: boolean
+      published_at:
+        type: string
+      title:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  model.NoticeReqCreate:
+    properties:
+      content:
+        type: string
+      is_active:
+        type: boolean
+      is_read:
+        type: boolean
+      notice_type:
+        type: boolean
+      published_at:
+        type: string
+      title:
+        type: string
+      user_id:
+        type: integer
+    required:
+    - content
+    - is_active
+    - notice_type
+    - published_at
+    - title
+    type: object
+  model.NoticeReqEdit:
+    properties:
+      content:
+        type: string
+      is_active:
+        type: boolean
+      is_read:
+        type: boolean
+      notice_id:
+        type: integer
+      notice_type:
+        type: boolean
+      published_at:
+        type: string
+      title:
+        type: string
+      user_id:
+        type: integer
+    required:
+    - notice_id
+    type: object
+  model.NoticeReqList:
+    properties:
+      keyword:
+        type: string
+      page:
+        type: integer
+      page_size:
+        type: integer
+    required:
+    - page
+    - page_size
+    type: object
+  model.RefreshToken:
+    properties:
+      created_at:
+        type: string
+      expires_at:
+        type: string
+      refresh_token:
+        type: string
+      revoked:
+        type: boolean
+      token_id:
+        type: integer
+      user_id:
+        type: integer
+    type: object
+  model.RefreshTokenReqCreate:
+    properties:
+      expires_at:
+        type: string
+      refresh_token:
+        type: string
+      revoked:
+        type: boolean
+      user_id:
+        type: integer
+    required:
+    - expires_at
+    - refresh_token
+    - user_id
+    type: object
+  model.RefreshTokenReqEdit:
+    properties:
+      expires_at:
+        type: string
+      refresh_token:
+        type: string
+      revoked:
+        type: boolean
+      token_id:
+        type: integer
+      user_id:
+        type: integer
+    required:
+    - token_id
+    type: object
+  model.RefreshTokenReqList:
+    properties:
+      page:
+        type: integer
+      page_size:
+        type: integer
+    required:
+    - page
+    - page_size
+    type: object
+  model.RefreshTokenRequest:
+    properties:
+      refresh_token:
+        type: string
+    required:
+    - refresh_token
+    type: object
+  model.RefreshTokenResponse:
+    properties:
+      access_token:
+        type: string
+      refresh_token:
+        type: string
+    type: object
+  model.RegisterRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  model.Response-model_Article:
+    properties:
+      data:
+        allOf:
+        - $ref: '#/definitions/model.Article'
+        description: 数据
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      success:
+        description: 请求是否成功
+        type: boolean
+    type: object
+  model.Response-model_AuthResponse:
+    properties:
+      data:
+        allOf:
+        - $ref: '#/definitions/model.AuthResponse'
+        description: 数据
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      success:
+        description: 请求是否成功
+        type: boolean
+    type: object
+  model.Response-model_Comment:
+    properties:
+      data:
+        allOf:
+        - $ref: '#/definitions/model.Comment'
+        description: 数据
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      success:
+        description: 请求是否成功
+        type: boolean
+    type: object
+  model.Response-model_Facility:
+    properties:
+      data:
+        allOf:
+        - $ref: '#/definitions/model.Facility'
+        description: 数据
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      success:
+        description: 请求是否成功
+        type: boolean
+    type: object
+  model.Response-model_File:
+    properties:
+      data:
+        allOf:
+        - $ref: '#/definitions/model.File'
+        description: 数据
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      success:
+        description: 请求是否成功
+        type: boolean
+    type: object
+  model.Response-model_Language:
+    properties:
+      data:
+        allOf:
+        - $ref: '#/definitions/model.Language'
+        description: 数据
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      success:
+        description: 请求是否成功
+        type: boolean
+    type: object
+  model.Response-model_Menu:
+    properties:
+      data:
+        allOf:
+        - $ref: '#/definitions/model.Menu'
+        description: 数据
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      success:
+        description: 请求是否成功
+        type: boolean
+    type: object
+  model.Response-model_Notice:
+    properties:
+      data:
+        allOf:
+        - $ref: '#/definitions/model.Notice'
+        description: 数据
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      success:
+        description: 请求是否成功
+        type: boolean
+    type: object
+  model.Response-model_RefreshToken:
+    properties:
+      data:
+        allOf:
+        - $ref: '#/definitions/model.RefreshToken'
+        description: 数据
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      success:
+        description: 请求是否成功
+        type: boolean
+    type: object
+  model.Response-model_RefreshTokenResponse:
+    properties:
+      data:
+        allOf:
+        - $ref: '#/definitions/model.RefreshTokenResponse'
+        description: 数据
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      success:
+        description: 请求是否成功
+        type: boolean
+    type: object
+  model.Response-model_Store:
+    properties:
+      data:
+        allOf:
+        - $ref: '#/definitions/model.Store'
+        description: 数据
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      success:
+        description: 请求是否成功
+        type: boolean
+    type: object
+  model.Response-model_Tag:
+    properties:
+      data:
+        allOf:
+        - $ref: '#/definitions/model.Tag'
+        description: 数据
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      success:
+        description: 请求是否成功
+        type: boolean
+    type: object
+  model.Response-model_User:
+    properties:
+      data:
+        allOf:
+        - $ref: '#/definitions/model.User'
+        description: 数据
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      success:
+        description: 请求是否成功
+        type: boolean
+    type: object
+  model.Response-model_VisitHistory:
+    properties:
+      data:
+        allOf:
+        - $ref: '#/definitions/model.VisitHistory'
+        description: 数据
+      errCode:
+        description: 错误码
+        type: string
+      errMessage:
+        description: 错误信息
+        type: string
+      success:
+        description: 请求是否成功
+        type: boolean
+    type: object
+  model.RevokeTokenRequest:
+    properties:
+      refresh_token:
+        type: string
+    required:
+    - refresh_token
+    type: object
+  model.Store:
+    properties:
+      address:
+        type: string
+      business_hours:
+        type: string
+      created_at:
+        type: string
+      description:
+        type: string
+      latitude:
+        type: number
+      location:
+        type: string
+      longitude:
+        type: number
+      phone_number:
+        type: string
+      rating_score:
+        type: number
+      store_category:
+        type: string
+      store_id:
+        type: integer
+      store_name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  model.StoreReqCreate:
+    properties:
+      address:
+        type: string
+      business_hours:
+        type: string
+      description:
+        type: string
+      latitude:
+        type: number
+      location:
+        type: string
+      longitude:
+        type: number
+      phone_number:
+        type: string
+      rating_score:
+        type: number
+      store_category:
+        type: string
+      store_name:
+        type: string
+    required:
+    - address
+    - business_hours
+    - latitude
+    - location
+    - longitude
+    - phone_number
+    - rating_score
+    - store_category
+    - store_name
+    type: object
+  model.StoreReqEdit:
+    properties:
+      address:
+        type: string
+      business_hours:
+        type: string
+      description:
+        type: string
+      latitude:
+        type: number
+      location:
+        type: string
+      longitude:
+        type: number
+      phone_number:
+        type: string
+      rating_score:
+        type: number
+      store_category:
+        type: string
+      store_id:
+        type: integer
+      store_name:
+        type: string
+    required:
+    - store_id
+    type: object
+  model.StoreReqList:
+    properties:
+      keyword:
+        type: string
+      page:
+        type: integer
+      page_size:
+        type: integer
+    required:
+    - page
+    - page_size
+    type: object
+  model.StoreTagReq:
+    properties:
+      tag_id:
+        type: integer
+    required:
+    - tag_id
+    type: object
+  model.Tag:
+    properties:
+      created_at:
+        type: string
+      is_active:
+        type: boolean
+      tag_id:
+        type: integer
+      tag_name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  model.TagReqCreate:
+    properties:
+      is_active:
+        type: boolean
+      tag_name:
+        type: string
+    required:
+    - tag_name
+    type: object
+  model.TagReqEdit:
+    properties:
+      is_active:
+        type: boolean
+      tag_id:
+        type: integer
+      tag_name:
+        type: string
+    required:
+    - tag_id
+    type: object
+  model.TagReqList:
+    properties:
+      keyword:
+        type: string
+      page:
+        type: integer
+      page_size:
+        type: integer
+    required:
+    - page
+    - page_size
+    type: object
+  model.User:
+    properties:
+      address:
+        type: string
+      apple_id:
+        type: string
+      birth:
+        type: string
+      created_at:
+        type: string
+      email:
+        type: string
+      gender:
+        type: string
+      google_id:
+        type: string
+      name:
+        type: string
+      name_kana:
+        type: string
+      password:
+        type: string
+      phone_number:
+        type: string
+      provider:
+        type: string
+      status:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  model.UserReqCreate:
+    properties:
+      address:
+        type: string
+      apple_id:
+        type: string
+      birth:
+        type: string
+      email:
+        type: string
+      gender:
+        type: string
+      google_id:
+        type: string
+      name:
+        type: string
+      name_kana:
+        type: string
+      password:
+        type: string
+      phone_number:
+        type: string
+      provider:
+        type: string
+      status:
+        type: string
+    required:
+    - email
+    - provider
+    - status
+    type: object
+  model.UserReqEdit:
+    properties:
+      address:
+        type: string
+      apple_id:
+        type: string
+      birth:
+        type: string
+      email:
+        type: string
+      gender:
+        type: string
+      google_id:
+        type: string
+      name:
+        type: string
+      name_kana:
+        type: string
+      password:
+        type: string
+      phone_number:
+        type: string
+      provider:
+        type: string
+      status:
+        type: string
+      user_id:
+        type: integer
+    required:
+    - user_id
+    type: object
+  model.UserReqList:
+    properties:
+      keyword:
+        type: string
+      page:
+        type: integer
+      page_size:
+        type: integer
+    required:
+    - page
+    - page_size
+    type: object
+  model.VisitHistory:
+    properties:
+      created_at:
+        type: string
+      facility_id:
+        type: integer
+      history_id:
+        type: integer
+      is_active:
+        type: boolean
+      scan_at:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  model.VisitHistoryReqCreate:
+    properties:
+      facility_id:
+        type: integer
+      is_active:
+        type: boolean
+      scan_at:
+        type: string
+      user_id:
+        type: integer
+    required:
+    - facility_id
+    - is_active
+    - scan_at
+    - user_id
+    type: object
+  model.VisitHistoryReqEdit:
+    properties:
+      facility_id:
+        type: integer
+      history_id:
+        type: integer
+      is_active:
+        type: boolean
+      scan_at:
+        type: string
+      user_id:
+        type: integer
+    required:
+    - history_id
+    type: object
+  model.VisitHistoryReqList:
+    properties:
+      keyword:
+        type: string
+      page:
+        type: integer
+      page_size:
+        type: integer
+    required:
+    - page
+    - page_size
+    type: object
+info:
+  contact: {}
+paths:
+  /api/articles:
+    post:
+      consumes:
+      - application/json
+      description: 新建一个文章
+      parameters:
+      - description: 文章信息
+        in: body
+        name: article
+        required: true
+        schema:
+          $ref: '#/definitions/model.ArticleReqCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_Article'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: 新建文章
+      tags:
+      - Articles
+    put:
+      consumes:
+      - application/json
+      description: 更新文章信息
+      parameters:
+      - description: 文章信息
+        in: body
+        name: article
+        required: true
+        schema:
+          $ref: '#/definitions/model.ArticleReqEdit'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新文章
+      tags:
+      - Articles
+  /api/articles/{article_id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除一个文章
+      parameters:
+      - description: 文章ID
+        in: path
+        name: article_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: 删除文章
+      tags:
+      - Articles
+    get:
+      consumes:
+      - application/json
+      description: 获取单个文章信息
+      parameters:
+      - description: 文章ID
+        in: path
+        name: article_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_Article'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取文章信息
+      tags:
+      - Articles
+  /api/articles/list:
+    post:
+      consumes:
+      - application/json
+      description: 获取文章分页列表
+      parameters:
+      - description: 分页与搜索
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/model.ArticleReqList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ListResponse-model_Article'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取文章列表
+      tags:
+      - Articles
+  /api/auth/login:
+    post:
+      consumes:
+      - application/json
+      description: 登录
+      parameters:
+      - description: 登录请求
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_AuthResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 登录
+      tags:
+      - Auth
+  /api/auth/logout:
+    post:
+      consumes:
+      - application/json
+      description: 使refresh token失效（登出）
+      parameters:
+      - description: 登出请求
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.RevokeTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 登出
+      tags:
+      - Auth
+  /api/auth/refresh:
+    post:
+      consumes:
+      - application/json
+      description: 使用Refresh Token刷新Access Token
+      parameters:
+      - description: 刷新Token请求
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.RefreshTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_RefreshTokenResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 刷新Access Token
+      tags:
+      - Auth
+  /api/auth/register:
+    post:
+      consumes:
+      - application/json
+      description: 用户注册，创建新用户
+      parameters:
+      - description: 注册请求
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_AuthResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 用户注册
+      tags:
+      - Auth
+  /api/auth/user/profile:
+    get:
+      consumes:
+      - application/json
+      description: 获取当前登录用户信息
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取用户信息
+      tags:
+      - Users
+  /api/comments:
+    post:
+      consumes:
+      - application/json
+      description: 新建一条评论
+      parameters:
+      - description: 评论信息
+        in: body
+        name: comment
+        required: true
+        schema:
+          $ref: '#/definitions/model.CommentReqCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_Comment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 新建评论
+      tags:
+      - Comments
+    put:
+      consumes:
+      - application/json
+      description: 更新评论内容
+      parameters:
+      - description: 评论信息
+        in: body
+        name: comment
+        required: true
+        schema:
+          $ref: '#/definitions/model.CommentReqEdit'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 更新评论
+      tags:
+      - Comments
+  /api/comments/{comment_id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除一条评论
+      parameters:
+      - description: 评论ID
+        in: path
+        name: comment_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 删除评论
+      tags:
+      - Comments
+    get:
+      consumes:
+      - application/json
+      description: 获取一条评论信息
+      parameters:
+      - description: 评论ID
+        in: path
+        name: comment_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_Comment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取单个评论
+      tags:
+      - Comments
+  /api/comments/list:
+    post:
+      consumes:
+      - application/json
+      description: 获取评论分页列表
+      parameters:
+      - description: 分页与搜索
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/model.CommentReqList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ListResponse-model_Comment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取评论列表
+      tags:
+      - Comments
+  /api/facilities:
+    post:
+      consumes:
+      - application/json
+      description: 新增一个设施记录
+      parameters:
+      - description: 设施信息
+        in: body
+        name: facility
+        required: true
+        schema:
+          $ref: '#/definitions/model.FacilityCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_Facility'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 新建设施
+      tags:
+      - Facilities
+  /api/facilities/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除指定ID的设施
+      parameters:
+      - description: 设施ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 删除设施
+      tags:
+      - Facilities
+    get:
+      consumes:
+      - application/json
+      description: 通过ID获取设施详情
+      parameters:
+      - description: 设施ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_Facility'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取单个设施
+      tags:
+      - Facilities
+    put:
+      consumes:
+      - application/json
+      description: 更新指定ID的设施
+      parameters:
+      - description: 设施ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 设施信息
+        in: body
+        name: facility
+        required: true
+        schema:
+          $ref: '#/definitions/model.FacilityUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_Facility'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 更新设施
+      tags:
+      - Facilities
+  /api/facilities/list:
+    post:
+      consumes:
+      - application/json
+      description: 获取设施列表（分页 + 搜索）
+      parameters:
+      - description: 分页与搜索
+        in: body
+        name: query
+        required: true
+        schema:
+          $ref: '#/definitions/model.FacilityQueryRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ListResponse-model_Facility'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取设施列表
+      tags:
+      - Facilities
+  /api/files:
+    post:
+      consumes:
+      - application/json
+      description: 新建一个文件
+      parameters:
+      - description: 文件信息
+        in: body
+        name: file
+        required: true
+        schema:
+          $ref: '#/definitions/model.FileReqCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_File'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 新建文件
+      tags:
+      - Files
+    put:
+      consumes:
+      - application/json
+      description: 更新文件信息
+      parameters:
+      - description: 文件信息
+        in: body
+        name: file
+        required: true
+        schema:
+          $ref: '#/definitions/model.FileReqEdit'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 更新文件
+      tags:
+      - Files
+  /api/files/{file_id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除一个文件
+      parameters:
+      - description: 文件ID
+        in: path
+        name: file_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 删除文件
+      tags:
+      - Files
+    get:
+      consumes:
+      - application/json
+      description: 获取单个文件信息
+      parameters:
+      - description: 文件ID
+        in: path
+        name: file_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_File'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取文件
+      tags:
+      - Files
+  /api/files/list:
+    post:
+      consumes:
+      - application/json
+      description: 获取文件分页列表
+      parameters:
+      - description: 分页与搜索
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/model.FileReqList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ListResponse-model_File'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取文件列表
+      tags:
+      - Files
+  /api/languages:
+    post:
+      consumes:
+      - application/json
+      description: 创建一个新语言
+      parameters:
+      - description: 语言信息
+        in: body
+        name: language
+        required: true
+        schema:
+          $ref: '#/definitions/model.LanguageReqCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_Language'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 创建语言
+      tags:
+      - Languages
+    put:
+      consumes:
+      - application/json
+      description: 更新语言信息
+      parameters:
+      - description: 语言信息
+        in: body
+        name: language
+        required: true
+        schema:
+          $ref: '#/definitions/model.LanguageReqEdit'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 更新语言
+      tags:
+      - Languages
+  /api/languages/{language_id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除一个语言
+      parameters:
+      - description: 语言ID
+        in: path
+        name: language_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 删除语言
+      tags:
+      - Languages
+    get:
+      consumes:
+      - application/json
+      description: 获取单个语言
+      parameters:
+      - description: 语言ID
+        in: path
+        name: language_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_Language'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取语言
+      tags:
+      - Languages
+  /api/languages/list:
+    post:
+      consumes:
+      - application/json
+      description: 获取语言分页列表
+      parameters:
+      - description: 分页与搜索
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/model.LanguageReqList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ListResponse-model_Language'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取语言列表
+      tags:
+      - Languages
+  /api/menus:
+    post:
+      consumes:
+      - application/json
+      description: 新建一个菜单
+      parameters:
+      - description: 菜单信息
+        in: body
+        name: menu
+        required: true
+        schema:
+          $ref: '#/definitions/model.MenuReqCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_Menu'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 新建菜单
+      tags:
+      - Menus
+    put:
+      consumes:
+      - application/json
+      description: 更新菜单信息
+      parameters:
+      - description: 菜单信息
+        in: body
+        name: menu
+        required: true
+        schema:
+          $ref: '#/definitions/model.MenuReqEdit'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 更新菜单
+      tags:
+      - Menus
+  /api/menus/{menu_id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除一个菜单
+      parameters:
+      - description: 菜单ID
+        in: path
+        name: menu_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 删除菜单
+      tags:
+      - Menus
+    get:
+      consumes:
+      - application/json
+      description: 获取单个菜单信息
+      parameters:
+      - description: 菜单ID
+        in: path
+        name: menu_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_Menu'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取菜单
+      tags:
+      - Menus
+  /api/menus/list:
+    post:
+      consumes:
+      - application/json
+      description: 获取菜单分页列表
+      parameters:
+      - description: 分页与搜索
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/model.MenuReqList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ListResponse-model_Menu'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取菜单列表
+      tags:
+      - Menus
+  /api/notices:
+    post:
+      consumes:
+      - application/json
+      description: 新建一条通知
+      parameters:
+      - description: 通知信息
+        in: body
+        name: notice
+        required: true
+        schema:
+          $ref: '#/definitions/model.NoticeReqCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_Notice'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 新建通知
+      tags:
+      - Notices
+    put:
+      consumes:
+      - application/json
+      description: 更新通知内容
+      parameters:
+      - description: 通知信息
+        in: body
+        name: notice
+        required: true
+        schema:
+          $ref: '#/definitions/model.NoticeReqEdit'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 更新通知
+      tags:
+      - Notices
+  /api/notices/{notice_id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除一条通知
+      parameters:
+      - description: 通知ID
+        in: path
+        name: notice_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 删除通知
+      tags:
+      - Notices
+    get:
+      consumes:
+      - application/json
+      description: 获取单个通知信息
+      parameters:
+      - description: 通知ID
+        in: path
+        name: notice_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_Notice'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取通知
+      tags:
+      - Notices
+  /api/notices/list:
+    post:
+      consumes:
+      - application/json
+      description: 获取通知分页列表
+      parameters:
+      - description: 分页与搜索
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/model.NoticeReqList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ListResponse-model_Notice'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取通知列表
+      tags:
+      - Notices
+  /api/refresh_tokens:
+    post:
+      consumes:
+      - application/json
+      description: 新建一个Refresh Token
+      parameters:
+      - description: Refresh Token信息
+        in: body
+        name: refresh_token
+        required: true
+        schema:
+          $ref: '#/definitions/model.RefreshTokenReqCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_RefreshToken'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 新建Refresh Token
+      tags:
+      - RefreshTokens
+    put:
+      consumes:
+      - application/json
+      description: 更新Refresh Token
+      parameters:
+      - description: Refresh Token信息
+        in: body
+        name: refresh_token
+        required: true
+        schema:
+          $ref: '#/definitions/model.RefreshTokenReqEdit'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 更新Refresh Token
+      tags:
+      - RefreshTokens
+  /api/refresh_tokens/{token_id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除一个Refresh Token
+      parameters:
+      - description: Token ID
+        in: path
+        name: token_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 删除Refresh Token
+      tags:
+      - RefreshTokens
+    get:
+      consumes:
+      - application/json
+      description: 获取单个Refresh Token
+      parameters:
+      - description: Token ID
+        in: path
+        name: token_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_RefreshToken'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取Refresh Token
+      tags:
+      - RefreshTokens
+  /api/refresh_tokens/list:
+    post:
+      consumes:
+      - application/json
+      description: 获取Refresh Token分页列表
+      parameters:
+      - description: 分页与搜索
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/model.RefreshTokenReqList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ListResponse-model_RefreshToken'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取Refresh Token列表
+      tags:
+      - RefreshTokens
+  /api/stores:
+    post:
+      consumes:
+      - application/json
+      description: 新建一个商铺
+      parameters:
+      - description: 商铺信息
+        in: body
+        name: store
+        required: true
+        schema:
+          $ref: '#/definitions/model.StoreReqCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_Store'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 新建商铺
+      tags:
+      - Stores
+    put:
+      consumes:
+      - application/json
+      description: 更新商铺信息
+      parameters:
+      - description: 商铺信息
+        in: body
+        name: store
+        required: true
+        schema:
+          $ref: '#/definitions/model.StoreReqEdit'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 更新商铺
+      tags:
+      - Stores
+  /api/stores/{store_id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除一个商铺
+      parameters:
+      - description: 商铺ID
+        in: path
+        name: store_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 删除商铺
+      tags:
+      - Stores
+    get:
+      consumes:
+      - application/json
+      description: 获取单个商铺信息
+      parameters:
+      - description: 商铺ID
+        in: path
+        name: store_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_Store'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取商铺信息
+      tags:
+      - Stores
+  /api/stores/{storeID}/tags:
+    get:
+      consumes:
+      - application/json
+      description: 根据商铺ID获取关联的标签列表
+      parameters:
+      - description: 商铺ID
+        in: path
+        name: storeID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应，包含商铺ID和标签列表
+          schema:
+            $ref: '#/definitions/model.ListResponse-model_Tag'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取商铺的标签
+      tags:
+      - Stores
+    post:
+      consumes:
+      - application/json
+      description: 为指定商铺添加一个标签
+      parameters:
+      - description: 商铺ID
+        in: path
+        name: storeID
+        required: true
+        type: string
+      - description: 标签ID
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/model.StoreTagReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_Store'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 为商铺添加标签
+      tags:
+      - Stores
+  /api/stores/{storeID}/tags/{tagID}:
+    delete:
+      consumes:
+      - application/json
+      description: 从指定商铺中移除一个标签
+      parameters:
+      - description: 商铺ID
+        in: path
+        name: storeID
+        required: true
+        type: string
+      - description: 标签ID
+        in: path
+        name: tagID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应，标签移除成功
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: 服务器内部错误
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 删除商铺的标签
+      tags:
+      - Stores
+  /api/stores/list:
+    post:
+      consumes:
+      - application/json
+      description: 获取商铺分页列表
+      parameters:
+      - description: 分页与搜索
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/model.StoreReqList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ListResponse-model_Store'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取商铺列表
+      tags:
+      - Stores
+  /api/tags:
+    post:
+      consumes:
+      - application/json
+      description: 创建一个新标签
+      parameters:
+      - description: 标签信息
+        in: body
+        name: tag
+        required: true
+        schema:
+          $ref: '#/definitions/model.TagReqCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_Tag'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 创建标签
+      tags:
+      - Tags
+    put:
+      consumes:
+      - application/json
+      description: 更新标签信息
+      parameters:
+      - description: 标签信息
+        in: body
+        name: tag
+        required: true
+        schema:
+          $ref: '#/definitions/model.TagReqEdit'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 更新标签
+      tags:
+      - Tags
+  /api/tags/{tag_id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除一个标签
+      parameters:
+      - description: 标签ID
+        in: path
+        name: tag_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 删除标签
+      tags:
+      - Tags
+    get:
+      consumes:
+      - application/json
+      description: 获取单个标签
+      parameters:
+      - description: 标签ID
+        in: path
+        name: tag_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_Tag'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取标签
+      tags:
+      - Tags
+  /api/tags/list:
+    post:
+      consumes:
+      - application/json
+      description: 获取标签分页列表
+      parameters:
+      - description: 分页与搜索
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/model.TagReqList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ListResponse-model_Tag'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取标签列表
+      tags:
+      - Tags
+  /api/users:
+    post:
+      consumes:
+      - application/json
+      description: 新建一个用户
+      parameters:
+      - description: 用户信息
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserReqCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 新建用户
+      tags:
+      - Users
+    put:
+      consumes:
+      - application/json
+      description: 更新一个用户信息
+      parameters:
+      - description: 用户信息
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserReqEdit'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 更新用户
+      tags:
+      - Users
+  /api/users/{user_id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除一个用户
+      parameters:
+      - description: 用户ID
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 删除用户
+      tags:
+      - Users
+    get:
+      consumes:
+      - application/json
+      description: 获取单个用户信息
+      parameters:
+      - description: 用户ID
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取用户信息
+      tags:
+      - Users
+  /api/users/list:
+    post:
+      consumes:
+      - application/json
+      description: 获取用户分页列表
+      parameters:
+      - description: 分页与搜索
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserReqList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ListResponse-model_User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取用户列表
+      tags:
+      - Users
+  /api/visit_history:
+    post:
+      consumes:
+      - application/json
+      description: 新建一个访问记录
+      parameters:
+      - description: 访问记录信息
+        in: body
+        name: visit_history
+        required: true
+        schema:
+          $ref: '#/definitions/model.VisitHistoryReqCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_VisitHistory'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 新建访问记录
+      tags:
+      - VisitHistories
+    put:
+      consumes:
+      - application/json
+      description: 更新访问记录信息
+      parameters:
+      - description: 访问记录信息
+        in: body
+        name: visit_history
+        required: true
+        schema:
+          $ref: '#/definitions/model.VisitHistoryReqEdit'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 更新访问记录
+      tags:
+      - VisitHistories
+  /api/visit_history/{history_id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除一个访问记录
+      parameters:
+      - description: 访问记录ID
+        in: path
+        name: history_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 删除访问记录
+      tags:
+      - VisitHistories
+    get:
+      consumes:
+      - application/json
+      description: 获取单个访问记录
+      parameters:
+      - description: 访问记录ID
+        in: path
+        name: history_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response-model_VisitHistory'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取访问记录
+      tags:
+      - VisitHistories
+  /api/visit_history/list:
+    post:
+      consumes:
+      - application/json
+      description: 获取访问记录分页列表
+      parameters:
+      - description: 分页与搜索
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/model.VisitHistoryReqList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ListResponse-model_VisitHistory'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.BaseResponse'
+      summary: 获取访问记录列表
+      tags:
+      - VisitHistories
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

@@ -193,30 +193,30 @@ func (s *Server) LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(`{"message":"logged out"}`))
 }
 
-func (s *Server) SaveRefreshToken(userID int, refreshToken string, expiresAt time.Time) error {
-	query := `
-        INSERT INTO refresh_tokens (user_id, refresh_token, expires_at)
-        VALUES ($1, $2, $3)
-    `
-	_, err := s.db.Exec(query, userID, refreshToken, expiresAt)
-	return err
-}
+// func (s *Server) SaveRefreshToken(userID int, refreshToken string, expiresAt time.Time) error {
+// 	query := `
+//         INSERT INTO refresh_tokens (user_id, refresh_token, expires_at)
+//         VALUES ($1, $2, $3)
+//     `
+// 	_, err := s.db.Exec(query, userID, refreshToken, expiresAt)
+// 	return err
+// }
 
-func (s *Server) GetRefreshToken(token string) (*model.RefreshToken, error) {
-	var rt model.RefreshToken
-	query := `
-        SELECT token_id, user_id, refresh_token, expires_at, created_at, revoked
-        FROM refresh_tokens
-        WHERE refresh_token = $1 AND revoked = FALSE
-    `
-	err := s.db.QueryRow(query, token).Scan(
-		&rt.TokenID, &rt.UserID, &rt.RefreshToken, &rt.ExpiresAt, &rt.CreatedAt, &rt.Revoked,
-	)
-	if err != nil {
-		return nil, err
-	}
-	return &rt, nil
-}
+// func (s *Server) GetRefreshToken(token string) (*model.RefreshToken, error) {
+// 	var rt model.RefreshToken
+// 	query := `
+//         SELECT token_id, user_id, refresh_token, expires_at, created_at, revoked
+//         FROM refresh_tokens
+//         WHERE refresh_token = $1 AND revoked = FALSE
+//     `
+// 	err := s.db.QueryRow(query, token).Scan(
+// 		&rt.TokenID, &rt.UserID, &rt.RefreshToken, &rt.ExpiresAt, &rt.CreatedAt, &rt.Revoked,
+// 	)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	return &rt, nil
+// }
 
 func generateRefreshToken() (string, error) {
 	b := make([]byte, 32)
