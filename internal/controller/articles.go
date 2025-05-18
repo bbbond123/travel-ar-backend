@@ -1,10 +1,10 @@
 package controller
 
 import (
-	"ar-backend/internal/model"
-	"ar-backend/pkg/database"
 	"net/http"
 	"strconv"
+	"travel-ar-backend/internal/model"
+	"travel-ar-backend/pkg/database"
 
 	"strings"
 

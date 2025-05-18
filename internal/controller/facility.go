@@ -1,9 +1,9 @@
 package controller
 
 import (
-	"ar-backend/internal/model"
-	"ar-backend/pkg/database"
 	"net/http"
+	"travel-ar-backend/internal/model"
+	"travel-ar-backend/pkg/database"
 
 	"github.com/gin-gonic/gin"
 )

@@ -5,8 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"ar-backend/internal/model"
-	"ar-backend/pkg/database"
+	"travel-ar-backend/internal/model"
+	"travel-ar-backend/pkg/database"
 
 	"strconv"
 )

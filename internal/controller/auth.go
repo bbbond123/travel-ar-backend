@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"time"
 
-	"ar-backend/internal/model"
-	"ar-backend/pkg/database"
+	"travel-ar-backend/internal/model"
+	"travel-ar-backend/pkg/database"
 
 	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
