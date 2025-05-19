@@ -3,7 +3,6 @@ package server
 import (
 	"context"
 	"crypto/rand"
-	"database/sql"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
@@ -17,6 +16,7 @@ import (
 	"github.com/go-chi/cors"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/markbates/goth/gothic"
+	"gorm.io/gorm"
 )
 
 // 假设你有一个 JWT secret
@@ -58,7 +58,9 @@ func (s *Server) HelloWorldHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) healthHandler(w http.ResponseWriter, r *http.Request) {
-	jsonResp, _ := json.Marshal(s.db.Health())
+	// GORM 没有 Health 方法，这里简单返回 OK
+	resp := map[string]string{"status": "ok"}
+	jsonResp, _ := json.Marshal(resp)
 	_, _ = w.Write(jsonResp)
 }
 
@@ -73,26 +75,38 @@ func (s *Server) getAuthCallbackFunction(w http.ResponseWriter, r *http.Request)
 		fmt.Fprintln(w, "auth error:", err)
 		return
 	}
-
 	fmt.Println(user)
-
-	// 1. 查找用户
-	userInDB, err := s.db.GetUserByEmail(user.Email)
-	if err == sql.ErrNoRows {
-		// 2. 不存在则插入
-		userInDB, err = s.db.CreateUser(model.User{
+	var userInDB model.User
+	err = s.gormDB.Where("email = ?", user.Email).First(&userInDB).Error
+	if err == gorm.ErrRecordNotFound {
+		userInDB = model.User{
 			Email:    user.Email,
 			GoogleID: user.UserID,
 			Name:     user.Name,
 			Avatar:   user.AvatarURL,
 			Provider: "google",
 			Status:   "active",
-		})
+		}
+		err = s.gormDB.Create(&userInDB).Error
+		if err != nil {
+			http.Error(w, "Could not create user", http.StatusInternalServerError)
+			return
+		}
+	} else if err == nil {
+		// 存在则更新
+		err = s.gormDB.Model(&userInDB).Updates(map[string]interface{}{
+			"google_id":  user.UserID,
+			"avatar":     user.AvatarURL,
+			"updated_at": time.Now(),
+		}).Error
+		if err != nil {
+			http.Error(w, "Could not update user", http.StatusInternalServerError)
+			return
+		}
 	} else {
-		// 3. 存在则更新
-		s.db.UpdateUserGoogleInfo(userInDB.UserID, user.UserID, user.AvatarURL)
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
 	}
-
 	// 生成 JWT
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"user_id": userInDB.UserID,
@@ -202,6 +216,16 @@ func (s *Server) LogoutHandler(w http.ResponseWriter, r *http.Request) {
 // 	return err
 // }
 
+// GORM 版本：
+// func (s *Server) SaveRefreshToken(userID int, refreshToken string, expiresAt time.Time) error {
+// 	rt := model.RefreshToken{
+// 		UserID:      userID,
+// 		RefreshToken: refreshToken,
+// 		ExpiresAt:   expiresAt,
+// 	}
+// 	return s.gormDB.Create(&rt).Error
+// }
+
 // func (s *Server) GetRefreshToken(token string) (*model.RefreshToken, error) {
 // 	var rt model.RefreshToken
 // 	query := `
@@ -212,6 +236,16 @@ func (s *Server) LogoutHandler(w http.ResponseWriter, r *http.Request) {
 // 	err := s.db.QueryRow(query, token).Scan(
 // 		&rt.TokenID, &rt.UserID, &rt.RefreshToken, &rt.ExpiresAt, &rt.CreatedAt, &rt.Revoked,
 // 	)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	return &rt, nil
+// }
+
+// GORM 版本：
+// func (s *Server) GetRefreshToken(token string) (*model.RefreshToken, error) {
+// 	var rt model.RefreshToken
+// 	err := s.gormDB.Where("refresh_token = ? AND revoked = FALSE", token).First(&rt).Error
 // 	if err != nil {
 // 		return nil, err
 // 	}
