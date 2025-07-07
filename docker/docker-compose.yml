@@ -1,0 +1,18 @@
+services:
+  n8n:
+    image: n8nio/n8n
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_PERSONALIZATION_ENABLED=true
+      - N8N_DISABLE_PRODUCTION_MAIN_MENU=false
+      - N8N_LOG_LEVEL=debug
+      - N8N_EDITOR_BASE_URL=http://localhost:5678
+      - N8N_DEFAULT_LOCALE=en
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - NODE_FUNCTION_ALLOW_BUILTIN=*
+      - N8N_CUSTOM_EXTENSIONS=/data/packages
+    volumes:
+      - ./n8n-data:/home/node/.n8n
+      - ./n8n-packages:/data/packages
